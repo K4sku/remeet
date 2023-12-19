@@ -1,4 +1,10 @@
 <div id="<%= dom_id event %>">
+  <h2 class="text-2xl font-bold mb-2"><%= event.title %></h2>
+  <p class="text-gray-700 text-sm mb-2"><%= event.description %></p>
+  <p class="text-gray-700 text-sm mb-2">Status: <%= event.status %></p>
+  <p class="text-gray-700 text-sm mb-2">From: <%= event.date_from.strftime("%B %d, %Y") %></p>
+  <p class="text-gray-700 text-sm mb-2">To: <%= event.date_to.strftime("%B %d, %Y") %></p>
+
   <% if action_name != "show" %>
     <%= link_to "Show this event", event, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this event", edit_event_path(event), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
