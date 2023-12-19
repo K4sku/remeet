@@ -22,7 +22,7 @@ class EventsController < ApplicationController
 
   # POST /events
   def create
-    result = Event::Operation::Create.call(params: event_params)
+    result = Event::Operation::Create.call(params: event_params.mer)
     @event = result[:model]
 
     if result.success?
@@ -34,8 +34,10 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    @event = Event.find(params[:id])
-    if @event.update(event_params)
+    result = Event::Operation::Update.call(params: event_params, event_id: params[:id])
+    @event = result[:model]
+
+    if result.success?
       redirect_to @event, notice: "Event was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
