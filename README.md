@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Testing
 
-Things you may want to cover:
+1. The file structure of our test suite, particularly `test/concepts` is not final, yet.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+sudo -u postgres createuser remeet_development -s -P
