@@ -208,10 +208,6 @@ GEM
       trailblazer-activity-dsl-linear (>= 1.2.0, < 1.4.0)
       trailblazer-developer (>= 0.1.0, < 0.2.0)
     trailblazer-option (0.1.2)
-    trailblazer-test (0.1.1)
-      hashie
-      trailblazer-activity (>= 0.10.0)
-      trailblazer-activity-dsl-linear (>= 0.2.5)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     web-console (4.2.1)
@@ -237,9 +233,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   sprockets-rails
   tailwindcss-rails
-  trailblazer-developer (~> 0.1)
-  trailblazer-operation (~> 0.10)
-  trailblazer-test (~> 0.1)
+  trailblazer-operation
   tzinfo-data
   web-console
 
