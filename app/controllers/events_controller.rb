@@ -23,11 +23,11 @@ class EventsController < ApplicationController
   # POST /events
   def create
     result = Event::Operation::Create.call(params: event_params)
+    @event = result[:model]
 
     if result.success?
-      redirect_to event_path(result[:model].id), notice: "Event was successfully created."
+      redirect_to @event, notice: "Event was successfully created."
     else
-      @event = result[:form]
       render :new, status: :unprocessable_entity
     end
   end
