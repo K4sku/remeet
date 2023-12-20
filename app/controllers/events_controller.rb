@@ -2,27 +2,31 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all
+    result = Event::Operation::Index.call
+    @events = result[:models]
   end
 
   # GET /events/1
   def show
-    @event = Event.find(params[:id])
+    result = Event::Operation::Show.call(params: params)
+    @event = result[:model]
   end
 
   # GET /events/new
   def new
-    @event = Event.new
+    result = Event::Operation::New.call
+    @event = result[:model]
   end
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
+    result = Event::Operation::Edit.call(params: params)
+    @event = result[:model]
   end
 
   # POST /events
   def create
-    result = Event::Operation::Create.call(params: event_params.mer)
+    result = Event::Operation::Create.call(params: event_params)
     @event = result[:model]
 
     if result.success?
@@ -46,9 +50,14 @@ class EventsController < ApplicationController
 
   # DELETE /events/1
   def destroy
-    @event = Event.find(params[:id])
-    @event.destroy!
-    redirect_to events_url, notice: "Event was successfully destroyed.", status: :see_other
+    result = Event::Operation::Destroy.call(event_id: params[:id])
+    @event = result[:model]
+
+    if result.success?
+      redirect_to events_url, notice: "Event was successfully destroyed.", status: :see_other
+    else
+      redirect_to @event, alert: "Event was not destroyed."
+    end
   end
 
   private
