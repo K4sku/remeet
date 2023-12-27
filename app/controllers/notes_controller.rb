@@ -1,30 +1,35 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
-
   # GET /notes
   def index
-    @notes = Note.all
+    @event = Event.find(params[:event_id])
+    @notes = @event.notes
   end
 
   # GET /notes/1
   def show
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.find(params[:id])
   end
 
   # GET /notes/new
   def new
-    @note = Note.new
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.build
   end
 
   # GET /notes/1/edit
   def edit
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.find(params[:id])
   end
 
   # POST /notes
   def create
-    @note = Note.new(note_params)
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.build(note_params)
 
     if @note.save
-      redirect_to @note, notice: "Note was successfully created."
+      redirect_to event_note_path(@event, @note), notice: "Note was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,8 +37,10 @@ class NotesController < ApplicationController
 
   # PATCH/PUT /notes/1
   def update
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.find(params[:id])
     if @note.update(note_params)
-      redirect_to @note, notice: "Note was successfully updated.", status: :see_other
+      redirect_to event_note_path(@event, @note), notice: "Note was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,15 +48,13 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1
   def destroy
+    @event = Event.find(params[:event_id])
+    @note = @event.notes.find(params[:id])
     @note.destroy!
-    redirect_to notes_url, notice: "Note was successfully destroyed.", status: :see_other
+    redirect_to event_path(@event), notice: "Note was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_note
-      @note = Note.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def note_params

@@ -5,7 +5,7 @@ module Event::Operation
     private
 
     def find_models(ctx, **)
-      ctx[:models] = Event.all
+      ctx[:models] = Event.all.includes(:notes)
     end
   end
 end

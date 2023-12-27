@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   root "events#index"
 
-  resources :events
-  resources :notes
+  resources :events do
+    resources :notes
+  end
 end

@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   def show
     result = Event::Operation::Show.call(params: params)
     @event = result[:model]
+    @notes = result[:notes]
   end
 
   # GET /events/new

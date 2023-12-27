@@ -4,9 +4,12 @@
     <%= note.content %>
   </p>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this note", note, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this note", edit_note_path(note), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+  <% if controller_name != "notes" %>
+    <%= link_to "Show this note", event_note_path(@event, note), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this note", edit_event_note_path(@event, note), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this note", event_note_path(@event, note), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
+    </div>
     <hr class="mt-6">
   <% end %>
 </div>

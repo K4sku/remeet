@@ -6,10 +6,10 @@
 
     <%= render @note %>
 
-    <%= link_to "Edit this note", edit_note_path(@note), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this note", edit_event_note_path(@event, @note), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this note", note_path(@note), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Destroy this note", event_note_path(@event, @note), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
     </div>
-    <%= link_to "Back to notes", notes_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Back to event", event_path(@event), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>
