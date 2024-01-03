@@ -1,34 +1,32 @@
 class NotesController < ApplicationController
-  # GET /notes
-  def index
-    @event = Event.find(params[:event_id])
-    @notes = @event.notes
-  end
-
   # GET /notes/1
   def show
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.find(params[:id])
+    result = Note::Operation::Show.(params: params)
+    @event = result[:event]
+    @note = result[:model]
   end
 
   # GET /notes/new
   def new
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.build
+    result = Note::Operation::New.(params: params)
+    @event = result[:event]
+    @note = result[:model]
   end
 
   # GET /notes/1/edit
   def edit
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.find(params[:id])
+    result = Note::Operation::Edit.(params: params)
+    @event = result[:event]
+    @note = result[:model]
   end
 
   # POST /notes
   def create
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.build(note_params)
+    result = Note::Operation::Create.(params: note_params.merge(event_id: params[:event_id]))
+    @event = result[:event]
+    @note = result[:model]
 
-    if @note.save
+    if result.success?
       redirect_to event_note_path(@event, @note), notice: "Note was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -37,9 +35,11 @@ class NotesController < ApplicationController
 
   # PATCH/PUT /notes/1
   def update
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.find(params[:id])
-    if @note.update(note_params)
+    result = Note::Operation::Update.(params: note_params.merge(event_id: params[:event_id], id: params[:id]))
+    @event = result[:event]
+    @note = result[:model]
+
+    if result.success?
       redirect_to event_note_path(@event, @note), notice: "Note was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
@@ -48,16 +48,16 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1
   def destroy
-    @event = Event.find(params[:event_id])
-    @note = @event.notes.find(params[:id])
-    @note.destroy!
+    result = Note::Operation::Destroy.(params: params)
+    @event = result[:event]
+
     redirect_to event_path(@event), notice: "Note was successfully destroyed.", status: :see_other
   end
 
   private
 
-    # Only allow a list of trusted parameters through.
-    def note_params
-      params.require(:note).permit(:content)
-    end
+  # Only allow a list of trusted parameters through.
+  def note_params
+    params.fetch(:note, {}).permit(:content)
+  end
 end
