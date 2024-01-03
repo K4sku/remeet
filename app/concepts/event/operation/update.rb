@@ -1,15 +1,11 @@
 module Event::Operation
   class Update < Trailblazer::Operation
-    step :find_model
+    step Model::Find(Event, find_by: :id)
     step :validate_form
     left :add_error_messages_to_model
     step :update_model
 
     private
-
-    def find_model(ctx, event_id:, **)
-      ctx[:model] = Event.find(event_id)
-    end
 
     def validate_form(ctx, params:, **)
       ctx[:form] = EventForm.new(params)
