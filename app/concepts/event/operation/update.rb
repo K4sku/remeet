@@ -1,6 +1,6 @@
 module Event::Operation
   class Update < Trailblazer::Operation
-    step Model::Find(Event, find_by: :id)
+    step Model::Find(Event, find_by: :id) # it calls ctx[:model] = Event.find_by(id: params[:id])
     step :validate_form
     left :add_error_messages_to_model
     step :update_model
