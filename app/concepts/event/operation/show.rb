@@ -1,11 +1,11 @@
 module Event::Operation
   class Show < Trailblazer::Operation
-    step :find_model
+    step Model::Find(Event, find_by: :id)
 
     private
 
-    def find_model(ctx, params:, **)
-      ctx[:model] = Event.find(params[:id])
+    def find_notes(ctx, model:, **)
+      ctx[:notes] = model.notes.to_a
     end
   end
 end

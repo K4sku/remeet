@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   def show
     result = Event::Operation::Show.call(params: params)
     @event = result[:model]
+    @notes = result[:notes]
   end
 
   # GET /events/new
@@ -38,7 +39,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    result = Event::Operation::Update.call(params: event_params, event_id: params[:id])
+    result = Event::Operation::Update.call(params: event_params.merge(id: params[:id]))
     @event = result[:model]
 
     if result.success?
@@ -50,7 +51,7 @@ class EventsController < ApplicationController
 
   # DELETE /events/1
   def destroy
-    result = Event::Operation::Destroy.call(event_id: params[:id])
+    result = Event::Operation::Destroy.call(params: params)
     @event = result[:model]
 
     if result.success?

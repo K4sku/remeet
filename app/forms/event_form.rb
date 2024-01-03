@@ -1,7 +1,7 @@
 class EventForm
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :status, :date_from, :date_to
+  attr_accessor :id, :title, :description, :status, :date_from, :date_to
 
   validates :title, presence: true
   validates :status, inclusion: { in: %w[draft upcoming in_progress finished canceled] }
@@ -15,6 +15,7 @@ class EventForm
 
   def attributes
     {
+      id: id,
       title: title,
       description: description,
       status: status,
