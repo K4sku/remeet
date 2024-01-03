@@ -1,21 +1,21 @@
 class NotesController < ApplicationController
   # GET /notes/1
   def show
-    result = Note::Operation::Show.(params: params)
+    result = Note::Operation::Show.(params: params) # you can omit #call() and just use .()
     @event = result[:event]
     @note = result[:model]
   end
 
   # GET /notes/new
   def new
-    result = Note::Operation::New.(params: params)
+    result = Note::Operation::New.(params: params) # you can omit #call() and just use .()
     @event = result[:event]
     @note = result[:model]
   end
 
   # GET /notes/1/edit
   def edit
-    result = Note::Operation::Edit.(params: params)
+    result = Note::Operation::Edit.(params: params) # you can omit #call() and just use .()
     @event = result[:event]
     @note = result[:model]
   end

@@ -25,6 +25,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 gem "trailblazer-operation" # don't use Reform for now.
 gem "trailblazer-macro", git: "https://github.com/trailblazer/trailblazer-macro.git", branch: "model"
+# gem "trailblazer-pro-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
