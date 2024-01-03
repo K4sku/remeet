@@ -1,11 +1,11 @@
-one:
+event_one:
   title: "Test Event One"
   description: "This is a test event"
   status: "upcoming"
   date_from: 2023-01-01
   date_to: 2023-01-06
 
-two:
+event_two:
   title: "Test Event Two"
   description: "This is another test event"
   status: "finished"
